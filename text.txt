@@ -1,0 +1,101 @@
+THEORY
+
+- Read Nodes
+
+For read nodes, we can use this:
+    + document.getElementById() -> este es muy específico, ya que solo puede haber un id con el mismo nombre
+
+    + document.getElementByTagName() -> nos permite traer todos los elementos que hayan con el tag que le hayamos dicho
+
+    + document.getElementByClassName() -> este puede también tener más de un elemento ya que lo que le pongamos puede repetirse como es un imput, img, etc
+
+Estos selectores para aplicaciones reales ya no están "bien visos" ya que las APIs han cambiado mucho y lo que vamos a usar ahora es:
+
+    + parentElement.querySelector (" ") -> este me permite seleccionar cualquier cosa que especifique dentro del selector en forma de string (aunque solo me va a seleccionar el primer elemento que especifique con ese id, class, etc) pero esta ligado con los selectores de CSS por tanto tendré que tener en cuenta si estoy llamando un ' id ' tendré que poner antes del nombre que quiero seleccionar un ' # ' o si es un ' class ' tendré que poner un ' . '
+
+    + parentElement.querySelectorAll (" ") -> es igual que el anterior pero me devuelve todos los elementos con el string que le haya pedido en forma de ' NodeList '
+
+- NodeList vs Array
+
+El NodeList es != a un Array.
+La principal diferencia es que el NodeList carece de operaciones que los array si que tienen como son: .map .some .filter .reduce y otros métodos más avanzados
+
+Por tanto, lo interesante es cuando tenemos una NodeList es transformarla a un array creando una variable que la haga array
+
+    Ej: tengo NodeList y la quiero pasar a array 
+    const transformArr = [...NodeList]
+
+    Con esto, tendríamos que nuestro NodeList ya tendría los métodos que tiene un array ya que lo hemos transformado en uno de ellos
+
+Por tanto, siempre que tengamos un NodeList lo pasamos a Array ya que son más convenientes y los navegadores y más concretamente el V8 están optimizados para tarabajar con Arrays y no NodeList
+
+- Create Nodes
+
+Para crear nodos, podemos crearlos de dos tipos:
+
+    +1. document.createElement (" ") -> nos permite crear un elemento que colocamos dentro de las comillas en forma de string como puede ser un ' div ', un ' h1 ', etc. Y que lo creemos no significa que los hayamos añadido al DOM, simplemente lo hemos guardado en la memoria.
+
+        +1.1 document.createTextNode ( "text" ) -> nos permite crear texto sin ninguna característica adicional, solo es texto
+
+    +2. document.createTextContent () -> nos permite crear un texto
+
+    +3. parentElement.appendChild () -> este siempre nos va a agregar un nodo al final(es para crear nuevos nodos) para este necesito un nodo de referencia y el nuevo nodo que voy a crear. 
+        Ej: 
+        (referencia) const container = document.querySelector('div.card');
+        (nuevo) const h3 = document.createElement('h3');
+        (para añadirlo) container.appendChild(h3);
+
+    +4. parentElement.append () -> este es la evolución del anterior, appendChild y cubre las limitaciones que tiene el anterior. El problema de este es que no soporta internetExplorer (ya no se suele usar, así que estamos bien)
+        Ej: (usamos los containers anteriores)
+        container.append ('holita', document.createElement('div'));
+        
+        Hemos creado dos elementos a la vez con un solo append 
+
+    +5. parentElement.insertBefore () -> esto es igual que el append pero este nos lo va a insertar antes de la referencia mientras que el append siempre nos lo insertaba después. A este le tenemos que pasar en los paréntesis el nodo que queremos agregar y la referencia en la que nnos estamos basando a la hora de agregar 
+        Ej: (usamos los containers anteriores)
+        const title = document.createElement('h1');
+        const reference = document.querySelector('h2'); (un h2 que ya teníamos en donde ibamos a insertar el nuevo elemento)
+        container.insertBefore(title, reference); (el orden en el que colocamos el nodo a insertar y la referencia son MUY IMPORTANTES)
+
+        En este cado, el nodo de referencia tiene que ser hijo directo del nodo base, sino no va a funcionar
+
+    +6 parentElement.insertAdjacentElement () -> para este lo primero que debemos hacer es crear nuestra referencia
+
+        Ej:(usamos los containers anteriores)
+        const reference = document.querySelector('h2');
+        const node = document.createElement('span');
+        reference .insertAdjacentElement(' ', node);
+            La fuerza de este método radica en lo que le coloque entre las comillas que pueden ser 4 tipos diferentes:
+
+            1.reference .insertAdjacentElement('beforebegin', node);
+            Esto me crea mi span justo antes del h2 que es la referencia que estoy usando, me lo coloca justo antes de iniciar el h2, la referencia
+
+            2.reference .insertAdjacentElement('afterbegin', node);
+            Esto me crea mi span justo después del h2 (pero dentro del mismo)
+
+            3.reference .insertAdjacentElement('beforend', node);
+            Eto me crea el soan justo antes de acabar el h2, mi referencia (dentro del mismo)
+
+            4.reference .insertAdjacentElement('afterend', node);
+            Me coloca mi span justo después de de acabar el h2, en este caso me lo coloca fuera de la referencia ya que le estoy diciendo que esté después
+
+- Other form about create nodes
+
+    +node.outerHTML(leer HTML);
+    Este comando me devuelve como una cadena de texto el comando al cual estaba llamando.
+        Ej:
+        head = <h2> Checkout form </h2>
+        head.outerHTML
+        "<h2> Checkout form </h2>" (me lo devuelve com un string)
+
+    +node.innerHTML(escribir HTML);
+    Este me permite modificar el código que tengo dentro
+        Ej:
+        head = <h2> Checkout form </h2>
+        head2 = <h3> Check-in form </h3>
+        head.innerHTML = head2
+    El problema de este .innerHTML es que no nos permite leer código maligno que nos puedan inyectar.
+        Ej ejecutamos en la página https://codepen.io/jonalvarezz/pen/OJXeNab:
+        Hola <strong onclick = " alert ('esto es un ataque de seguridad')"> Amigo </strong> 
+    El onclick no lo detecta ya que no es parte del código y por tanto, tendríamos una vulnerabilidad.
+    Para evitar esto, aquel código que esté escrito por los usuarios, nunca debemos dar la opción de que hagan esto, solo deberían hacerlo aquellas personas que sean las encargadas 
