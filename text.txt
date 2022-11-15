@@ -99,3 +99,37 @@ Para crear nodos, podemos crearlos de dos tipos:
         Hola <strong onclick = " alert ('esto es un ataque de seguridad')"> Amigo </strong> 
     El onclick no lo detecta ya que no es parte del código y por tanto, tendríamos una vulnerabilidad.
     Para evitar esto, aquel código que esté escrito por los usuarios, nunca debemos dar la opción de que hagan esto, solo deberían hacerlo aquellas personas que sean las encargadas 
+
+- Attributes and properties
+
+Esto es lo que le da vida al DOM pero mas concretamente, las propiedades son las que nos permiten modificar absolutamente todo
+Pregunta de entrevista: Cuál es la diferencia entre un atributo y una propiedad?
+    La diferencia está en que los atributos se utilizan únicamente al inicio para inicializar el HTML y no se pueden modificar, mientras que las propiedades sí se pueden modificar y es lo que vemos reflejado en el browser que parece estar 'vivo'. Esta diferencia de definiciones suele ser != para cada lenguaje de programación pero básicamente a diferencia radica en si se utiliza o no al inicio para el HTML.
+
+- Remove Nodes
+
+Son 3 las formas en la que lo podemos hacer:
+
+    +1. parentElement.removeChild (nodo que queremos eliminar);
+    Este nos sirve para eliminar un nodo en particular pero tenemos que tener en cuenta que, el nodo a eliminar será un hijo y por tanto la referencia que tendremos que tener será el padre de ese hijo, es decir, el que va justo antes del nodo a eliminar
+    Ej:
+    const removeNode = <h2> hola </h2>; este es el nodo que quremos eliminar, el hijo
+    const referencie = <div id= "container">...</div>; este es el padre, el div justo encima del hijo y que contiene al propio hijo 
+    referencia.removeChild(removeNode); y esto me elimina el hijo, el h2
+
+    +2. document.remove();
+    Este es la evolución del anterior, removeChild, y como en otras propiedades, no está soportado por internetExplorer.
+    Ej:
+    const reference = document.querySelector('h2'); esto lo que hace es seleccionar el primer h2 que encuentre y nos lo guarda en la variable reference pero también podemos usar lo anterior para seleccionar en concreto una parte que queramos eliminar y para ello usamos otra propiedad que no sea el querySelector() o también dentro del querySelector ponemos la clase/id/tag en concreto que tenga ese elemento (en este caso las referencias las tendremos que hacer como si fueran referencias de CSS) ej: document.querySelector('div.box-container-red')
+    reference.remove(); Y con esto eliminaríamos la referencia y nos ahorraríamos código.
+
+    +3. document.replaceChild(); 
+    Para este son 3 los elementos que necesitamos tener en cuenta: el padre, la referencia y el elemento a eliminar.
+    Ej:
+    const padre = document.querySelector('div.text-information');
+    const replaceElement = document.querySelector('h2'); hace referencia al primer h2 porque es el que quiero remplazar, por ejemplo.
+    const newNode = document.createElement('h1'); voy a remplazar el h2 por un h1
+    newNode.textContent = "New H1"; esto es para crear el texto que quermos que tenga este nuevo h1 ya que si no lo hacemos, sería un elemento vacio, lo habríamos transformado en un h1 pero el contenido del h2 a eliminar también se elimina con él.
+    padre.replaceChild(newNode, replaceElement); primero le pasamos lo que queremos tener como nuevo y luego le pasamos lo que vamos a eleminar.
+    
+
