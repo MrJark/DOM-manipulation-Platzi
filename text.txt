@@ -131,5 +131,32 @@ Son 3 las formas en la que lo podemos hacer:
     const newNode = document.createElement('h1'); voy a remplazar el h2 por un h1
     newNode.textContent = "New H1"; esto es para crear el texto que quermos que tenga este nuevo h1 ya que si no lo hacemos, sería un elemento vacio, lo habríamos transformado en un h1 pero el contenido del h2 a eliminar también se elimina con él.
     padre.replaceChild(newNode, replaceElement); primero le pasamos lo que queremos tener como nuevo y luego le pasamos lo que vamos a eleminar.
+
+- Batch operations
+
+Cunato menos eliminemos y reescribamos en el DOM, nuestra web/app será mucho mas rápida.
+Esta será la regla de oro: cuanto menos escribamos y eliminemos en el DOM, mejor.
+
+Para mejorar esto podemos aplicar las batch operations:
+    Ej:
+    for (let i = 0; i < 100; i++) {
+        const node = document.createElement('input'); lo creo de tipo input porque quiero, pero podría ser h1, h2, span, etc.
+        document.body.appendChild(node); esto lo que hace es añadir después del body los node que he creado
+    };
+    Esta forma no es muy eficiente ya que por cada nodo que creo estoy modificando el DOM con el appendChild y se vuelve cada vez más lenta la app
     
+    Otra manera de hacerlo para que sea mucho más eficiente es:
+    const nodes = []; creamos un array
+    for (let i = 0; i < 100; i++) {
+        const node = document.createElement('input');
+        nodes.push(node); esto me añade los 100 elementos de tipo input dentro del array y no del DOM
+    };
+    Con esto conseguimos no modificar el DOM y lo que hace es que guardamos esos 1oo elementos en la mamoria de javascript y no en el DOM
+    Y para agregarlo al DOM lo que hacemos es usar el append:
+    document.body.append(...nodos); y con este comando lo que hacemos es pasarle de un golpe y solo una vez los 100 nodos.
+    Si quisiera solo pasarle 2 nodos, los primeros sería:
+    document.body.append(node[0], node[1]);
+    y si quiero pasarle el nodo 59 y el 86:
+    document.body.append(node[59], node[86]);
+
 
