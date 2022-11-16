@@ -159,4 +159,19 @@ Para mejorar esto podemos aplicar las batch operations:
     y si quiero pasarle el nodo 59 y el 86:
     document.body.append(node[59], node[86]);
 
+-----------------------------------------------
+
+Vamos a usar npm para tarabajar y vamos a copiar los siguientes comandos:
+
+# Bootstrap the template into a new folder called `my-app`
+npx create-snowpack-app my-app --template snowpack-template-tailwind
+
+# Enable Prettier on git-commit
+cd my-app
+npm run install:husky
+
+# Start the development server
+npm start
+
+Estos lo he sacado del github del profesor que imparte las clases del curso en Platzi -> https://github.com/jonalvarezz/snowpack-template-tailwind
 
