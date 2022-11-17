@@ -175,3 +175,9 @@ npm start
 
 Estos lo he sacado del github del profesor que imparte las clases del curso en Platzi -> https://github.com/jonalvarezz/snowpack-template-tailwind
 
+***** Para hacer los coomits y guardar los cambios cuando usamos el npm tenemos que hacer lo siguiente:
+
+        1. Tenemos que apagar el servidor npm en la terminal con los comandos: esc + control + z
+        2. Hacemos un commit en la carpeta que estamos trabajando con el npm, en este caso es la de workshop-1-fetch
+        3. Hacemos otro commit en la carpeta que contiene a la anterior, en este caso la de para-npm
+        4. En la carpeta general, en mi caso DOM-Manipu.... hacemos el pull y luego el push
