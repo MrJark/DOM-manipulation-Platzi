@@ -160,6 +160,7 @@ Para mejorar esto podemos aplicar las batch operations:
     document.body.append(node[59], node[86]);
 
 -----------------------------------------------
+PARTE DE NPM 
 
 Vamos a usar npm para tarabajar y vamos a copiar los siguientes comandos:
 
@@ -181,3 +182,35 @@ Estos lo he sacado del github del profesor que imparte las clases del curso en P
         2. Hacemos un commit en la carpeta que estamos trabajando con el npm, en este caso es la de workshop-1-fetch
         3. Hacemos otro commit en la carpeta que contiene a la anterior, en este caso la de para-npm
         4. En la carpeta general, en mi caso DOM-Manipu.... hacemos el pull y luego el push
+
+----------------------------------------------
+
+- Events
+Para interactuar con el DOM necesitamos js y para ello vamos a tener que usar varios events:
+
+    +1. node.addEventListener ( ); para añadir elementos
+    Ej:
+    const input = document.getElementById('firstName'); // a lo que le voy a añadir un event listener 
+    const accion = () => { 
+        console.log ('Ha sucedido un click);
+    };// ejemplo de la función que quiero que suceda
+
+    input.addEventListener('click', accion);
+        // 1er elemento del addEventListener: tenemos que poner el tipo de evento que vamos a escuchar.
+            click: el más común
+            input: 
+        // 2o elemento del addEventListener: tengo que especificar que es lo que queiro que haga al escuchar el evento que hemos decidido poner 
+            Este puede ser una función en el propio addEventListener o una const que hemos definido anteriormente como una función, tenemos que poner una función (obligatoriamente) que queremos que haga
+        // 
+
+    +2. node.removeEventListener ( ); para eliminar elementos y que no se acumulen. 
+    
+    (DATO IMPORTANTE!! Para eliminar las funciones deben tener un nombre para poder llamarlas, si son funciones anónimas, nunca podremos llamarlas para eliminarlas. Ej: input.addEventListener('click', () => {console.log ('algo')}) esto nunca podremos eliminarlo porque no tenemos como llamarlo)
+
+    input.removeEventListener('click', accion); //con esto eliminamos la acción que le hemos dicho que nos haga en el apartado anterior.
+    En los argumentos tenemos que poner:
+        1o. que evento queremos que escucho para que elimine lo que tenga asociado
+        2o. que acción queremos que elimine y no se muestre cuando suceda el evento
+
+
+
