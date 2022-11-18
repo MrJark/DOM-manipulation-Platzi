@@ -212,5 +212,15 @@ Para interactuar con el DOM necesitamos js y para ello vamos a tener que usar va
         1o. que evento queremos que escucho para que elimine lo que tenga asociado
         2o. que acción queremos que elimine y no se muestre cuando suceda el evento
 
+- Propagación de Eevntos
 
+Bubbling es la forma en que se propaga desde lo más bajo hasta lo más alto
+El DOM es un arbol que renderiza nodos de forma jerárquica y cuando un evento sucede se propaga a lo largo de ese nodo
+Los eventos suceden desde el elemento más interno hacia afuera propagándose entre cada padre que tiene el elemento escuchado
+Si deseamos borrar este comportamiento podemos usar el parámetro de evento
+    Ej:
+    node.addEventListener("click", (event) => {
+	event.stopPropagation()
+	// Acciones ...
+    }); 
 
