@@ -227,3 +227,8 @@ Si deseamos borrar este comportamiento podemos usar el parámetro de evento
 - Lazy Loging
 
 Es el efecto que se da cuando tenemos imagenes en el html pero no se cargan hasta que hacemos scroll y las podemos ver en la pantalla. So 'falsas' imagenes
+
+-Intersection Observer
+
+Podemos decirle a JavaScript que observe un objeto cuando está dentro de la pantalla (o cuando sale de esta)
+https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
