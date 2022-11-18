@@ -224,3 +224,6 @@ Si deseamos borrar este comportamiento podemos usar el parámetro de evento
 	// Acciones ...
     }); 
 
+- Lazy Loging
+
+Es el efecto que se da cuando tenemos imagenes en el html pero no se cargan hasta que hacemos scroll y las podemos ver en la pantalla. So 'falsas' imagenes
